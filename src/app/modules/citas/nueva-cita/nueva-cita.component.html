@@ -1,0 +1,50 @@
+<div class="container py-4" style="max-width: 560px;">
+  <a routerLink="/citas" class="text-decoration-none text-muted small">← Volver</a>
+  <h4 class="mt-1 mb-4">Nueva cita</h4>
+
+  <div *ngIf="mascotas.length === 0" class="alert alert-warning">
+    No hay mascotas registradas. <a routerLink="/mascotas/nueva">Registra una primero.</a>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" *ngIf="mascotas.length > 0">
+    <div class="mb-3">
+      <label class="form-label">Mascota *</label>
+      <select formControlName="mascotaId" class="form-select" [class.is-invalid]="invalido('mascotaId')">
+        <option value="">Seleccionar...</option>
+        <option *ngFor="let m of mascotas" [value]="m.id">{{ m.nombre }} ({{ m.especie }}) — {{ m.propietarioNombre }}</option>
+      </select>
+      <div class="invalid-feedback">Seleccione una mascota.</div>
+    </div>
+
+    <div class="row g-3">
+      <div class="col-6">
+        <label class="form-label">Fecha *</label>
+        <input formControlName="fecha" type="date" class="form-control" [class.is-invalid]="invalido('fecha')" />
+        <div class="invalid-feedback">Campo requerido.</div>
+      </div>
+      <div class="col-6">
+        <label class="form-label">Hora *</label>
+        <input formControlName="hora" type="time" class="form-control" [class.is-invalid]="invalido('hora')" />
+        <div class="invalid-feedback">Campo requerido.</div>
+      </div>
+    </div>
+
+    <div class="mb-3 mt-3">
+      <label class="form-label">Motivo *</label>
+      <input formControlName="motivo" type="text" class="form-control" [class.is-invalid]="invalido('motivo')"
+        placeholder="Ej: Control rutinario, vacunación..." />
+      <div class="invalid-feedback">Mínimo 3 caracteres.</div>
+    </div>
+
+    <div class="mb-4">
+      <label class="form-label">Veterinario *</label>
+      <input formControlName="veterinario" type="text" class="form-control" [class.is-invalid]="invalido('veterinario')" />
+      <div class="invalid-feedback">Campo requerido.</div>
+    </div>
+
+    <div class="d-flex gap-2">
+      <button type="submit" class="btn btn-primary">Agendar cita</button>
+      <a routerLink="/citas" class="btn btn-outline-secondary">Cancelar</a>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,20 @@
+<div class="card h-100 shadow-sm" [appResaltarProxima]="cita.fecha">
+  <div class="card-body">
+    <div class="d-flex justify-content-between align-items-start mb-2">
+      <h6 class="card-title mb-0">{{ cita.mascotaNombre }}</h6>
+      <span class="badge {{ badgeClass(cita.estado) }}">{{ cita.estado | estadoCita }}</span>
+    </div>
+    <p class="mb-1 text-muted small">📅 {{ cita.fecha | date:'dd/MM/yyyy' }} · {{ cita.fecha | fechaRelativa }}</p>
+    <p class="mb-1 text-muted small">🕐 {{ cita.hora }}</p>
+    <p class="mb-1 small"><strong>Motivo:</strong> {{ cita.motivo }}</p>
+    <p class="mb-0 small text-muted" *ngIf="cita.veterinario">Dr. {{ cita.veterinario }}</p>
+  </div>
+  <div class="card-footer d-flex gap-1 flex-wrap py-2">
+    <button *ngIf="cita.estado === EstadoCita.PENDIENTE" class="btn btn-success btn-sm"
+      (click)="cambiarEstado.emit({ id: cita.id, estado: EstadoCita.COMPLETADA })">Completar</button>
+    <button *ngIf="cita.estado === EstadoCita.PENDIENTE" class="btn btn-outline-danger btn-sm"
+      (click)="cambiarEstado.emit({ id: cita.id, estado: EstadoCita.CANCELADA })">Cancelar</button>
+    <button class="btn btn-outline-secondary btn-sm ms-auto"
+      (click)="eliminar.emit(cita.id)">Eliminar</button>
+  </div>
+</div>

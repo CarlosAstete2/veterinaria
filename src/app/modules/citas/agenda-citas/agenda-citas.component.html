@@ -1,0 +1,27 @@
+<div class="container py-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="mb-0">Agenda de citas</h4>
+    <a routerLink="/citas/nueva" class="btn btn-primary btn-sm">+ Nueva cita</a>
+  </div>
+
+  <div class="mb-3">
+    <select class="form-select form-select-sm w-auto" [(ngModel)]="filtroEstado">
+      <option value="">Todos los estados</option>
+      <option *ngFor="let e of estados" [value]="e">{{ e | estadoCita }}</option>
+    </select>
+  </div>
+
+  <div *ngIf="filtradas.length === 0" class="text-center text-muted py-5">
+    No hay citas registradas.
+  </div>
+
+  <div class="row g-3">
+    <div class="col-md-6 col-lg-4" *ngFor="let c of filtradas">
+      <app-cita-card
+        [cita]="c"
+        (cambiarEstado)="onCambiarEstado($event)"
+        (eliminar)="onEliminar($event)">
+      </app-cita-card>
+    </div>
+  </div>
+</div>

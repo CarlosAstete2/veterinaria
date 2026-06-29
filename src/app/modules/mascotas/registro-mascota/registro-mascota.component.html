@@ -1,0 +1,68 @@
+<div class="container py-4" style="max-width: 640px;">
+  <h4 class="mb-4">{{ editando ? 'Editar mascota' : 'Registrar nueva mascota' }}</h4>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="card mb-3">
+      <div class="card-header fw-semibold">Datos de la mascota</div>
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">Nombre *</label>
+            <input formControlName="nombre" type="text" class="form-control" [class.is-invalid]="invalido('nombre')" />
+            <div class="invalid-feedback">Mínimo 2 caracteres.</div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Especie *</label>
+            <select formControlName="especie" class="form-select" [class.is-invalid]="invalido('especie')">
+              <option value="">Seleccionar...</option>
+              <option *ngFor="let e of especies" [value]="e">{{ e }}</option>
+            </select>
+            <div class="invalid-feedback">Seleccione una especie.</div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Raza *</label>
+            <input formControlName="raza" type="text" class="form-control" [class.is-invalid]="invalido('raza')" />
+            <div class="invalid-feedback">Campo requerido.</div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Fecha de nacimiento *</label>
+            <input formControlName="fechaNacimiento" type="date" class="form-control"
+              [class.is-invalid]="invalido('fechaNacimiento')" />
+            <div class="invalid-feedback">Campo requerido.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mb-3">
+      <div class="card-header fw-semibold">Datos del propietario</div>
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-12">
+            <label class="form-label">Nombre completo *</label>
+            <input formControlName="propietarioNombre" type="text" class="form-control"
+              [class.is-invalid]="invalido('propietarioNombre')" />
+            <div class="invalid-feedback">Mínimo 2 caracteres.</div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Teléfono *</label>
+            <input formControlName="propietarioTelefono" type="tel" class="form-control"
+              [class.is-invalid]="invalido('propietarioTelefono')" />
+            <div class="invalid-feedback">Solo números, 7-15 dígitos.</div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Email *</label>
+            <input formControlName="propietarioEmail" type="email" class="form-control"
+              [class.is-invalid]="invalido('propietarioEmail')" />
+            <div class="invalid-feedback">Email inválido.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex gap-2">
+      <button type="submit" class="btn btn-primary">{{ editando ? 'Guardar cambios' : 'Registrar' }}</button>
+      <a routerLink="/mascotas" class="btn btn-outline-secondary">Cancelar</a>
+    </div>
+  </form>
+</div>
